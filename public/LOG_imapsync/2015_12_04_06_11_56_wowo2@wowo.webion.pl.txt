@@ -1,0 +1,42 @@
+Transfer started at Fri Dec  4 06:11:56 2015
+PID is 26089
+Log file is LOG_imapsync/2015_12_04_06_11_56_wowo2@wowo.webion.pl.txt  ( to change it, use --logfile filepath ; or use --nolog to turn off logging )
+$RCSfile: imapsync,v $ $Revision: 1.644 $ $Date: 2015/07/17 01:22:52 $ 
+Here is a [linux] system (Linux darek 2.6.32-042stab111.11 #1 SMP Tue Sep 1 18:19:12 MSK 2015 x86_64)
+With perl 5.10.1 Mail::IMAPClient  3.34
+Command line used:
+/usr/bin/imapsync --host1 mail.ap.webion.pl --user1 darek@ap.webion.pl --password1 MASKED --host2 mail.wowo.webion.pl --user2 wowo2@wowo.webion.pl --password2 MASKED --pidfile /var/www/html/
+Temp directory is /tmp  ( to change it use --tmpdir dirpath )
+PID file is /var/www/html/ ( to change it use --pidfile filepath ; to avoid it use --pidfile "" )
+/var/www/html/ already exists, overwriting it ( use --pidfilelocking to avoid concurrent runs )
+Could not open /var/www/html/ for writing. Check permissions or disk space.Modules version list:
+Mail::IMAPClient     3.34
+IO::Socket           1.31
+IO::Socket::IP       ?
+IO::Socket::INET     1.31
+IO::Socket::SSL      1.31
+Net::SSLeay          1.35
+Compress::Zlib       2.021
+Digest::MD5          2.39
+Digest::HMAC_MD5     1.01
+Digest::HMAC_SHA1    1.01
+Term::ReadKey        2.30
+File::Spec           3.3
+Time::HiRes          1.9721
+Unicode::String      2.09
+IO::Tee              0.64
+File::Copy::Recursive 0.38
+Authen::NTLM         1.09
+URI::Escape          3.29
+Data::Uniqid         0.12
+JSON::WebToken       ?
+( use --no-modules_version to turn off printing this Perl modules list )
+Info: turned ON syncinternaldates, will set the internal dates (arrival dates) on host2 same as host1.
+Info: will try to use LOGIN authentication on host1
+Info: will try to use LOGIN authentication on host2
+Info: imap connexions timeout is 120 seconds
+Host1: IMAP server [mail.ap.webion.pl] port [143] user [darek@ap.webion.pl]
+Host2: IMAP server [mail.wowo.webion.pl] port [143] user [wowo2@wowo.webion.pl]
+Host1: * OK [CAPABILITY IMAP4rev1 LITERAL+ SASL-IR LOGIN-REFERRALS ID ENABLE IDLE STARTTLS AUTH=PLAIN] Dovecot DA ready.
+Host1: mail.ap.webion.pl says it has NO CAPABILITY for AUTHENTICATE LOGIN
+Failure: error login on [mail.ap.webion.pl] with user [darek@ap.webion.pl] auth [LOGIN]: 2 NO [AUTHENTICATIONFAILED] Authentication failed.

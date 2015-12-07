@@ -1,0 +1,1 @@
+imapsync --host1 mail.ap.webion.pl --user1 darek@ap.webion.pl --password1 ulxbA2Uo --host2 mail.wowo.webion.pl --user2 wowo2@wowo.webion.pl --password2 XEOPJIM2uc --pidfile /var/www/html566047357d194.pid
