@@ -23,23 +23,23 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="/index/">Mailbox transfer</a>
+                    <a class="navbar-brand" href="/transfer/param">Mailbox transfer</a>
                 </div>
-                <div id="navbar" class="collapse navbar-collapse">
+                <div id="navbar" class="collapse navbar-collapse" style="display: <?php echo $this->menu_display ?>" >
                     <ul class="nav navbar-nav">
                         <li><a href="/index/">Home</a></li>
-                        <li><a href="/index/check">Check</a></li>
-                        <li><a href="#contact">Contact</a></li>
+                        <li><a href="/transfer/check">Check</a></li>
+                        <!--<li><a href="/transfer/session">Contact</a></li>-->
                     </ul>
                 </div><!--/.nav-collapse -->
             </div>
         </nav>
         <p>&nbsp;</p>
-        <div class="container" style="background-color:  rgba(255, 255, 255, 0.8)">
-            <div class="big_bag" >
+        <div class="container" style="background-color:  rgba(255, 255, 255, 0.8);"">
+            
                 <h2>Mailbox transfer</h2>
                 <?php echo $this->layout()->content; ?>
-            </div>
+            
         </div>
     </body>
 </html>

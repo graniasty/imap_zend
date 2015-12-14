@@ -1,0 +1,41 @@
+<div class="out_table" >
+    <div class="out_table_label">Source mailbox parameters:</div>
+    <?php echo $this->form ?> 
+</div> 
+
+<div class="out_table" >
+    <div class="out_table_label">Target mailbox parameters:</div>
+    <?php echo $this->form2 ?> 
+</div> 
+
+<div class="out_table" style="display: <?php echo $this->table_display ?>" >
+    <div class="out_table_label">Transfer parameters</div>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Direction</th>
+                <th>Host</th>
+                <th>User</th>
+                <th>Password</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Source</td>
+                <td><?php echo $this->host1 ?></td>
+                <td><?php echo $this->user1 ?></td>
+                <td><?php echo $this->password1 ?></td>
+            </tr>
+            <tr>
+                <td>Target</td>
+                <td><?php echo $this->host2 ?></td>
+                <td><?php  echo $this->user2 ?></td>
+                <td><?php echo $this->password2 ?></td>
+            </tr>
+            <tr>
+                <td colspan="4" align="center"><a href="/Transfer/transfer" class="btn btn-primary" <?php echo $this->button_disabled ?>  >Begin transfer</a> </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+  
