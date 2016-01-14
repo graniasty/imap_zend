@@ -17,6 +17,10 @@ class Application_Form_Source extends Zend_Form {
                 ->addFilter('StringTrim')
                 ->addValidator('NotEmpty')
                 ->addValidator('Hostname');
+        
+        $edit = new Zend_Form_Element_Hidden('edit');
+        //$edit->setLabel('Edition Mode');
+        //$edit->clearDecorators();
 
         $host1->setDecorators(array(
             'ViewHelper',
@@ -80,6 +84,7 @@ class Application_Form_Source extends Zend_Form {
         ));
 
         $this->addElements(array(
+            $edit,
             $action,
             $host1,
             $user1,

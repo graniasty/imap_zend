@@ -53,11 +53,12 @@ class LoggedController extends Zend_Controller_Action {
                     $sess = Zend_Registry::get('session');
                     $t_servers = $sess->t_servers;
                     $t_servers[1] = $server;
+
                     $sess->t_servers = $t_servers;
 
                     $this->view->t_servers = $sess->t_servers;
 
-                    if (strlen($t_servers[0][1]) > 0) {
+                    if (array_key_exists(0, $t_servers)) {
                         $this->view->form2_display = "none";
                         $this->view->button_disabled = "";
                     }
@@ -65,6 +66,15 @@ class LoggedController extends Zend_Controller_Action {
                     var_dump($sess->t_servers);
                 } else {
                     $form->populate($formData);
+                    
+                    $sess = Zend_Registry::get('session');
+                    $t_servers = $sess->t_servers;
+                     if (array_key_exists(0, $t_servers)) {
+                        $this->view->form2_display = "none";
+                        $this->view->button_disabled = "disabled";
+                        $this->view->table_display = "block";
+                        $this->view->t_servers = $sess->t_servers;
+                    }
                 }
             } else {
                 if ($form2->isValid($formData)) {
@@ -85,23 +95,20 @@ class LoggedController extends Zend_Controller_Action {
                     $sess = Zend_Registry::get('session');
                     $t_servers = $sess->t_servers;
                     $t_servers[0] = $server;
+
                     $sess->t_servers = $t_servers;
 
-                    if (strlen($t_servers[1][1] > 0)) {
+                    if (array_key_exists(1, $t_servers)) {
                         $this->view->form_display = "none";
                         $this->view->button_disabled = "";
                     }
-
+//$length = strlen($t_servers)
                     $this->view->t_servers = $sess->t_servers;
                     echo 'tablica';
                     var_dump($sess->t_servers);
                 } else {
                     $form2->populate($formData);
                 }
-            }
-            if ((strlen($sess->host1) > 0) and ( strlen($sess->user1) > 0) and ( strlen($sess->password1) > 0) and ( strlen($sess->host2) > 0)
-                    and ( strlen($sess->user2) > 0) and ( strlen($sess->password2) > 0)) {
-                $this->view->button_disabled = "";
             }
         }
     }
@@ -116,24 +123,74 @@ class LoggedController extends Zend_Controller_Action {
         if ($this->getRequest()->isPost()) {
 
             $formData = $this->getRequest()->getPost();
-
+            var_dump($formData);
             if ($form->isValid($formData)) {
 
                 $direction = 'source';
                 $host1 = $formData['host1'];
                 $user1 = $formData['user1'];
                 $password1 = $formData['password1'];
-                $server = array($direction, $host1, $user1, $password1, 1);
+
 
                 $sess = Zend_Registry::get('session');
                 $t_servers = $sess->t_servers;
+                $id_param = end($t_servers);
+                var_dump($id_param);
+
+                $id_param = $id_param[4] + 1;
+                if ($id_param < 2) {
+                    $id_param = 2;
+                }
+                var_dump($id_param);
+                $server = array($direction, $host1, $user1, $password1, $id_param);
+                var_dump($server);
                 $t_servers[] = $server;
+
                 $sess->t_servers = $t_servers;
                 $this->view->t_servers = $sess->t_servers;
+                $this->view->form_display = "none";
+
+
+                var_dump($t_servers);
             } else {
                 $form->populate($formData);
             }
         }
+    }
+
+    public function cleanAction() {
+        $sess = Zend_Registry::get('session');
+        $t_servers = array();
+        $sess->t_servers = $t_servers;
+        $this->_redirect('logged/transfer');
+    }
+
+    public function deleteAction() {
+        $sess = Zend_Registry::get('session');
+        $id = $this->_getParam('id');
+        
+
+        if ($id >= 0) {
+            $t_servers = $sess->t_servers;
+            unset($t_servers[$id]);
+            $sess->t_servers = $t_servers;
+            $this->view->t_servers = $sess->t_servers;
+        }
+        var_dump($t_servers);
+    }
+
+    public function editAction() {
+        
+        $form = new Application_Form_Source();
+        $this->view->form = $form;
+
+        $sess = Zend_Registry::get('session');
+        $id = $this->_getParam('id');
+        $t_servers = $sess->t_servers;
+        $edited_server = $t_servers[$id];
+        var_dump($edited_server);
+        $data = array('action' => $edited_server[0], 'host1' => $edited_server[1], 'user1' => $edited_server[2], 'password1' => $edited_server[3]);
+        $form->populate($data);
     }
 
 }

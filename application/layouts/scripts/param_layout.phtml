@@ -23,23 +23,24 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="/transfer/param">Mailbox transfer</a>
+                    <a class="navbar-brand" href="/multi/param">transfer</a>
                 </div>
                 <div id="navbar" class="collapse navbar-collapse" style="display: <?php echo $this->menu_display ?>" >
                     <ul class="nav navbar-nav">
-                        <li><a href="/index/">Home</a></li>
-                        <li><a href="/transfer/check">Check</a></li>
+                        <li><a href="/multi/history">history</a></li>
+                        <li><a href="/logged/logout">logout</a></li>
+                        <li><a href="/multi/clean">clean</a></li>
                         <!--<li><a href="/transfer/session">Contact</a></li>-->
                     </ul>
                 </div><!--/.nav-collapse -->
             </div>
         </nav>
         <p>&nbsp;</p>
-        <div class="container" style="background-color:  rgba(255, 255, 255, 0.8);"">
-     <div class="out_table btn btn-default" >
+        <div class="container " style="background-color:  rgba(255, 255, 255, 0.8);"">
+            <div class="out_table btn btn-default" style="border-color: #cc9966">
                 <h3>Mailbox transfer</h3>
-            </div>       
-            <?php echo $this->layout()->content; ?>            
+            </div>         
+                <?php echo $this->layout()->content; ?>
         </div>
     </body>
 </html>

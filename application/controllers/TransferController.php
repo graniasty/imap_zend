@@ -117,7 +117,7 @@ class TransferController extends Zend_Controller_Action {
         
         $host1 = "mail.ap.webion.pl";
         $user1 = "darek@ap.webion.pl";
-        $password1 = "ulxbA2UoXX";
+        $password1 = "ulxbA2Uo";
         $host2 = "mail.wowo.webion.pl";
         $user2 = "wowo2@wowo.webion.pl";
         $password2 = "XEOPJIM2uc";
@@ -139,7 +139,7 @@ class TransferController extends Zend_Controller_Action {
         $fp = fopen("/var/www/html/solone.txt", "r");
         $tekst = fread($fp, 100);
         $pocz = strpos($tekst, "PID is");
-        $pid = substr($tekst, ($pocz + 7), 4);
+        $pid = substr($tekst, ($pocz + 7), 5);
        $this->view->process_number = $pid;
         
     }
@@ -154,5 +154,7 @@ class TransferController extends Zend_Controller_Action {
             return "<h4 style=\"color: green\" >Transfer has been completed. For more details, you have to be logged in</h4>";
         }
     }
+    
+    
 
 }
