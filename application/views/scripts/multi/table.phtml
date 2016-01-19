@@ -10,17 +10,19 @@
             </tr>
         </thead>
         <tbody>
-            <?php foreach ($this->sources as $key => $server) { ?>
-                <tr>
-                    <td><?php echo $server[0] ?></td>
-                    <td><?php echo $server[1] ?></td>
-                    <td><?php echo $server[2] ?></td>
-                    <td><?php echo $server[3] ?></td>
-                    <td>
-                        <a href="<?php echo $this->url(array('controller' => 'multi', 'action' => 'param', 'edit' => $key)) ?>" class="btn btn-default">Edit</a>
-                        <a href="<?php echo $this->url(array('controller' => 'multi', 'action' => 'delete', 'id' => $key)) ?>" class="btn btn-warning">Delete</a>
-                    </td>
-                </tr>
+            <?php if ($this->sources) { ?>
+                <?php foreach ($this->sources as $key => $server) { ?>
+                    <tr>
+                        <td><?php echo $server[0] ?></td>
+                        <td><?php echo $server[1] ?></td>
+                        <td><?php echo $server[2] ?></td>
+                        <td><?php echo $server[3] ?></td>
+                        <td>
+                            <a href="<?php echo $this->url(array('controller' => 'multi', 'action' => 'edit', 'edit' => $key)) ?>" class="btn btn-default">Edit</a>
+                            <a href="<?php echo $this->url(array('controller' => 'multi', 'action' => 'delete', 'id' => $key)) ?>" class="btn btn-warning">Delete</a>
+                        </td>
+                    </tr>
+                <?php } ?>
             <?php } ?>
             <?php if ($this->target) { ?>
                 <tr>

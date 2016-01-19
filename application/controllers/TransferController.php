@@ -14,7 +14,7 @@ class TransferController extends Zend_Controller_Action {
     }
 
     public function indexAction() {
-        //cos tam
+   
     }
 
     public function paramAction() {

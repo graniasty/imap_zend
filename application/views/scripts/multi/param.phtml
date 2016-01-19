@@ -20,18 +20,20 @@
             </tr>
         </thead>
         <tbody>
-            <?php foreach ($this->sources as $key => $server) { ?>
-                <tr>
-                    <td><?php echo $server[0] ?></td>
-                    <td><?php echo $server[1] ?></td>
-                    <td><?php echo $server[2] ?></td>
-                    <td><?php echo $server[3] ?></td>
-                    <td>
-                        <a href="<?php echo $this->url(array('controller' => 'multi', 'action' => 'param', 'edit' => $key)) ?>" class="btn btn-default">Edit</a>
-                        <a href="<?php echo $this->url(array('controller' => 'multi', 'action' => 'delete', 'id' => $key)) ?>" class="btn btn-warning">Delete</a>
-                    </td>
-                </tr>
-            <?php } ?>
+            
+                <?php foreach ($this->sources as $key => $server) { ?>
+                    <tr>
+                        <td><?php echo $server[0] ?></td>
+                        <td><?php echo $server[1] ?></td>
+                        <td><?php echo $server[2] ?></td>
+                        <td><?php echo $server[3] ?></td>
+                        <td>
+                            <a href="<?php echo $this->url(array('controller' => 'multi', 'action' => 'edit', 'edit' => $key)) ?>" class="btn btn-default">Edit</a>
+                            <a href="<?php echo $this->url(array('controller' => 'multi', 'action' => 'delete', 'id' => $key)) ?>" class="btn btn-warning">Delete</a>
+                        </td>
+                    </tr>
+                <?php } ?>
+           
             <?php if ($this->target) { ?>
                 <tr>
                     <td><?php echo $this->target[0]; ?></td>
@@ -46,18 +48,8 @@
             <?php } ?>
             <tr>
                 <td colspan="5" align="center">
-                    <a href="/multi/transfer" class="btn btn-primary" data-toggle="modal" data-target="#myModal"<?php echo $this->button_disabled ?>  >Begin transfer</a> </td>
+                    <a href="/multi/transfer" class="btn btn-primary" <?php echo $this->button_disabled ?>  >Begin transfer</a> </td>
             </tr>
-
         </tbody>
     </table>
-    <div class="modal-hide" id="dialog">
-    
-    <div class="modal-body">
-        <p>Some text in the modal.</p>
-    </div>
-    <div class="modal-footer">
-        <a href="" type="button" class="btn btn-default" data-dismiss="modal">Close</a>
-    </div>
-</div>
 </div>
