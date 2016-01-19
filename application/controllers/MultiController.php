@@ -18,7 +18,7 @@ class MultiController extends Zend_Controller_Action {
     public function preDispatch() {
         $auth = Zend_Auth::getInstance();
         if (!$auth->hasIdentity())
-            $thid->helper->redirector('auth', 'index');
+            $this->helper->redirector('auth', 'index');
         $this->view->user = $auth->getIdentity();
     }
 
@@ -143,7 +143,6 @@ class MultiController extends Zend_Controller_Action {
     public function transferAction() {
 
         //dane testowe
-        
 //        
 //        $host1 = "mail.ap.webion.pl";
 //        $user1 = "darek@ap.webion.pl";
@@ -152,35 +151,53 @@ class MultiController extends Zend_Controller_Action {
 //        $user2 = "wowo2@wowo.webion.pl";
 //        $password2 = "XEOPJIM2uc";
 //        
-        
+
         $sess = Zend_Registry::get('session');
-        $sources = array(array(
-                'host' => 'mail.ap.webion.pl',
-                'user' => 'darek@ap.webion.pl',
-                'password' => 'ulxbA2UoXX'),
-            array(
-                'host' => 'www.olpha.com',
-                'user' => 'ola@olpha.com',
-                'password' => "xxxyyy"
-        ));
-        $target = array(
-            'host' => 'mail.wowo.webion.pl',
-            'user' => 'wowo2@wowo.webion.pl',
-            'password' => 'XEOPJIM2uc'
-        );
+        $sources = $sess->sources;
+        $target = $sess->target;
+        echo 'to jest target';
+        //var_dump($sources);
+
+//        $sources = array(array(
+//                'host' => 'mail.ap.webion.pl',
+//                'user' => 'darek@ap.webion.pl',
+//                'password' => 'ulxbA2UoXX'),
+//            array(
+//                'host' => 'www.olpha.com',
+//                'user' => 'ola@olpha.com',
+//                'password' => "xxxyyy"
+//        ));
+//        $target = array(
+//            'host' => 'mail.wowo.webion.pl',
+//            'user' => 'wowo2@wowo.webion.pl',
+//            'password' => 'XEOPJIM2uc'
+//        );
         $id_user = Zend_Auth::getInstance()->getIdentity()->id;
 
-        $host2 = $target['host'];
-        $user2 = $target['user'];
-        $password2 = $target['password'];
+//        $host2 = $target['host'];
+//        $user2 = $target['user'];
+//        $password2 = $target['password'];
+        $host2 = $target[1];
+        $user2 = $target[2];
+        $password2 = $target[3];
         $server = new Application_Model_DbTable_Servers();
-        $id_target = $server->addServer($id_user, "target", $host2, $user2);
-
+        $wynik = $server->checkServer($host2, $user2);
+        var_dump($wynik);
+        if ($wynik == false) {
+            $id_target = $server->addServer($id_user, "target", $host2, $user2);
+        } else {
+            $id_target = $wynik[0]['id_server'];
+        }
+        
         foreach ($sources as $one) {
-            $host1 = $one['host'];
-            $user1 = $one['user'];
+//            $host1 = $one['host'];
+//            $user1 = $one['user'];
+//            $password1 = $one['password'];
+            $host1 = $one[1];
+            $user1 = $one[2];
+            $password1 = $one[3];
             $id_source = $server->addServer($id_user, "source", $host1, $user1);
-            $password1 = $one['password'];
+
 
             $today = time();
             $file = "out_" . uniqid();
@@ -198,11 +215,10 @@ class MultiController extends Zend_Controller_Action {
 
             $transfer = new Application_Model_DbTable_Transfers();
             $transfer->addTransfer($id_user, $id_target, $id_source, $today, $file, $status, $pid);
-            
         }
         $sess = Zend_Registry::get('session');
-        $sess->sources = array();
-        $sess->target = array();
+        //$sess->sources = array();
+        //$sess->target = array();
         $this->_redirect('multi/history');
     }
 
@@ -218,7 +234,6 @@ class MultiController extends Zend_Controller_Action {
             $status = $this->check_pid($pid);
             $status_transfers = new Application_Model_DbTable_Transfers();
             $status_transfers->setStatus($status, $id_transfer);
-            
         };
 
         $history = $this->show_history($id_user);
@@ -240,16 +255,19 @@ class MultiController extends Zend_Controller_Action {
             var_dump($file);
             $fp = fopen("/var/www/html/temp_files/$file.txt", "r");
             $tekst = fread($fp, 30000);
-            if (strpos($tekst, "Failure: can not open imap connection")){
+            if (strpos($tekst, "Failure: can not open imap connection")) {
                 $message = "Error connection";
-            } elseif( strpos($tekst, "Failure: error login on")){
+            } elseif (strpos($tekst, "Failure: error login on")) {
                 $message = "Error login";
-            } elseif (strpos($tekst, "Detected 0 errors")){
+            } elseif (strpos($tekst, "Detected 0 errors")) {
                 $message = "Transfer successful";
             } else {
                 $message = "Finished, no details";
             }
             $transfers->setZeroPid($pid);
+            //unlink("/var/www/html/temp_files/$file.txt");
+            echo 'znowu file' . $file;
+            //out_56976ed3e4e9c
             return $message;
         }
     }
@@ -266,6 +284,7 @@ class MultiController extends Zend_Controller_Action {
             $source = $source[0];
             $id = $transfer['server_target'];
             $target = $servers->getServerData($id);
+            //var_dump($target);
             $target = $target[0];
             $pid = $transfer['pid'];
             $id_tr = $transfer['id_transfers'];
@@ -285,4 +304,68 @@ class MultiController extends Zend_Controller_Action {
         }
         return $history;
     }
+
+    /**
+     * list servers for user
+     */
+    public function serversAction() {
+        $id_user = Zend_Auth::getInstance()->getIdentity()->id;
+        $servers = new Application_Model_DbTable_Servers();
+        $servers = $servers->getUserServer($id_user);
+        //var_dump($servers);
+        $this->view->servers = $servers;
+    }
+
+    /**
+     * for testing only
+     */
+    public function histAction() {
+      //$this->headScript()->prependFile('/js/bootstrap.min.js');
+    }
+
+    /**
+     * adding to current basket (multi transfer parameters) item from server list
+     */
+    public function addtotransferAction() {
+
+        $form = new Application_Form_AddToTransfer();
+        $this->view->form = $form;
+        $sess = Zend_Registry::get('session');
+        $sources = $sess->sources;
+        $target = $sess->target;
+        $id_server = $this->_getParam('edit');
+        $server = new Application_Model_DbTable_Servers();
+
+        $server = $server->getServerData($id_server);
+        $data = array(
+            'host1' => $server[0]['website'],
+            'user1' => $server[0]['user']
+        );
+        $form->populate($data);
+        $this->view->sources = $sources;
+        $this->view->target = $target;
+
+        if ($this->getRequest()->isPost()) {
+            $formData = $this->getRequest()->getPost();
+            if ($form->isValid($formData)) {
+                $sess = Zend_Registry::get('session');
+                if ($formData['action'] == '2') {
+                    $target = $sess->target;
+                    $target = array('target', $formData['host1'], $formData['user1'], $formData['password1']);                   
+                    $sess->target = $target;
+                    $this->_redirect('multi/param');
+                } elseif($formData['action'] == '1'){
+                    $sources = $sess->sources;
+                    echo 'z sesji<br/>';
+                    $source = array('source', $formData['host1'], $formData['user1'], $formData['password1']);
+                    $sources[] = $source;
+                    $sess->sources = $sources;
+                    $this->_redirect('multi/param');
+                }
+            } else {
+                $form->populate($formData);
+            }
+        }
+    }
+
 }

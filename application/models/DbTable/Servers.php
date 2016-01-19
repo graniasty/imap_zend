@@ -18,10 +18,34 @@ class Application_Model_DbTable_Servers extends Zend_Db_Table_Abstract {
         }
         return $this->getAdapter()->lastInsertId();
     }
-    
-    public function getServerData($id){
+
+    /**
+     * gets data of one server according to id_server
+     * @param type $id integer
+     * @return type multiarray
+     */
+    public function getServerData($id) {
         $row = $this->fetchAll("id_server = $id");
         return $row->toArray();
     }
 
+    /**
+     * gets all servers for certain user
+     */
+    public function getUserServer($id) {
+        $row = $this->fetchAll("id_user = $id");
+        return $row->toArray();
+    }
+
+    /**
+     * check server in db if exists does not put it again into db
+     * @param type $host2
+     * @return type multiarray
+     */
+    public function checkServer($host2, $user2) {
+        $row = $this->fetchAll("website = '$host2'and user = '$user2' ");
+        return $row->toArray();
+    }
+
+   
 }

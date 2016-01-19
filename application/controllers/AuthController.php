@@ -39,13 +39,35 @@ class AuthController extends Zend_Controller_Action {
     protected function _getAuthAdapter() {
         $dbAdapter = Zend_Db_Table::getDefaultAdapter();
         $authAdapter = new Zend_Auth_Adapter_DbTable($dbAdapter);
-        
+
         $authAdapter->setTableName('users')
                 ->setIdentityColumn('username')
                 ->setCredentialColumn('password')
                 ->setCredentialTreatment('SHA1(CONCAT(?,salt))');
-        
+
         return $authAdapter;
+    }
+
+    /**
+     * New user registration
+     */
+    public function registerAction() {
+        $form = new Application_Form_Register();
+        $this->view->form = $form;
+        if ($this->getRequest()->isPost()) {
+            $formData = $this->getRequest()->getPost();
+            var_dump($formData);
+            
+            if ($form->isValid($formData)) {
+                $user = $formData['username'];
+                $password = $formData['password'];
+                $users = new Application_Model_DbTable_Users();
+                $users->addUser($user, $password);
+                $this->redirect("index/index");
+            } else {
+                $form->populate($formData);
+            }
+        }
     }
 
 }
