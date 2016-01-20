@@ -115,19 +115,19 @@ class TransferController extends Zend_Controller_Action {
         $user2=$sess->user2;
         $password2=$sess->password2;
         
-        $host1 = "mail.ap.webion.pl";
-        $user1 = "darek@ap.webion.pl";
-        $password1 = "ulxbA2Uo";
-        $host2 = "mail.wowo.webion.pl";
-        $user2 = "wowo2@wowo.webion.pl";
-        $password2 = "XEOPJIM2uc";
-        
-        unset($sess->host1);
-        unset($sess->user1);
-        unset($sess->password1);
-        unset($sess->host2);
-        unset($sess->user2);
-        unset($sess->password2);
+//        $host1 = "mail.ap.webion.pl";
+//        $user1 = "darek@ap.webion.pl";
+//        $password1 = "ulxbA2Uo";
+//        $host2 = "mail.wowo.webion.pl";
+//        $user2 = "wowo2@wowo.webion.pl";
+//        $password2 = "XEOPJIM2uc";
+//        
+//        unset($sess->host1);
+//        unset($sess->user1);
+//        unset($sess->password1);
+//        unset($sess->host2);
+//        unset($sess->user2);
+//        unset($sess->password2);
 
         //$pidfile = '/var/www/html' . uniqid() . '.pid';
 

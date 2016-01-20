@@ -23,11 +23,10 @@ class MultiController extends Zend_Controller_Action {
     }
 
     public function indexAction() {
-        $this->_redirect('logged/transfer');
+        $this->_redirect('auth/index');
     }
 
     public function paramAction() {
-
         $this->view->table_display = "none";
         $form = new Application_Form_Source();
         $this->view->form = $form;
@@ -39,7 +38,7 @@ class MultiController extends Zend_Controller_Action {
         if ($this->getRequest()->isPost()) {
             $formData = $this->getRequest()->getPost();
             if ($formData['action'] == 'target') {
-                if ($form2->isValid($formData)) {
+                if ($form2->isValid($formData)) {               
                     $direction = 'target';
                     $host2 = $formData['host2'];
                     $user2 = $formData['user2'];
@@ -52,22 +51,13 @@ class MultiController extends Zend_Controller_Action {
                 }
             } else {
                 if ($form->isValid($formData)) {
+                    
                     $direction = 'source';
                     $host1 = $formData['host1'];
                     $user1 = $formData['user1'];
                     $password1 = $formData['password1'];
                     $server = array($direction, $host1, $user1, $password1);
                     $sources[] = $server;
-//                    if (strlen($formData['edit']) > 0) {
-//                        echo "wchodzi zawsze";
-//                        $edit = $formData['edit'];
-//                        $sources[$edit] = $server;
-//                        $flag = 1;
-//                    } else {
-//                        
-//                        $flag = 1;
-//                    }
-
                     $sess->sources = $sources;
                     $this->view->sources = $sources;
                     $form->reset();
@@ -92,21 +82,6 @@ class MultiController extends Zend_Controller_Action {
             $this->view->button_disabled = "disabled";
         }
 
-//        $edit = $this->_getParam('edit');
-//        echo "to jest wartość edit";
-//        echo $edit;
-//        echo $flag;
-//        if (strlen($edit) > 0) {
-//            $edited = $sess->sources[$edit];
-//            $edited = array('edit' => $edit, 'action' => 'source', 'host1' => $edited[1], 'user1' => $edited[2], 'password1' => $edited[3]);
-//            $form->populate($edited);
-//        }
-//        if (isset($flag)) {
-//            if ($flag == 1) {
-//                $form->reset();
-//                $flag = -1;
-//            }
-//        }
     }
 
     public function cleanAction() {
@@ -148,7 +123,7 @@ class MultiController extends Zend_Controller_Action {
         $sess = Zend_Registry::get('session');
         $sources = $sess->sources;
         $target = $sess->target;
-        
+
 // dane testowe
 //        $sources = array(array(
 //                'host' => 'mail.ap.webion.pl',
@@ -240,10 +215,10 @@ class MultiController extends Zend_Controller_Action {
             $file = $file[0]['file'];
             //var_dump($file);
             $fp = fopen("/var/www/html/temp_files/$file.txt", "r");
-            $tekst = fread($fp, 30000);
+            $tekst = fread($fp, 30000000);
             if (strpos($tekst, "Failure: can not open imap connection")) {
                 $message = "Error connection";
-            } elseif (strpos($tekst, "Failure: error login on")) {
+            } elseif (strpos($tekst, "Failure: error login on</p>")) {
                 $message = "Error login";
             } elseif (strpos($tekst, "Detected 0 errors")) {
                 $message = "Transfer successful";
@@ -265,13 +240,9 @@ class MultiController extends Zend_Controller_Action {
         foreach ($transfers as $key => $transfer) {
             $id = $transfer['server_source'];
             $source = $servers->getServerData($id);
-//            echo 'sources<br/>';
-//            var_dump($source);
             $source = $source[0];
             $id = $transfer['server_target'];
             $target = $servers->getServerData($id);
-//            echo 'target<br/>';
-//            var_dump($target);
             $target = $target[0];
             $pid = $transfer['pid'];
             $id_tr = $transfer['id_transfers'];
@@ -292,67 +263,12 @@ class MultiController extends Zend_Controller_Action {
         return $history;
     }
 
-    /**
-     * list servers for user
-     */
-    public function serversAction() {
-        $id_user = Zend_Auth::getInstance()->getIdentity()->id;
-        $servers = new Application_Model_DbTable_Servers();
-        $servers = $servers->getUserServer($id_user);
-        //var_dump($servers);
-        $this->view->servers = $servers;
-    }
 
     /**
      * for testing only
      */
     public function histAction() {
-        //$this->headScript()->prependFile('/js/bootstrap.min.js');
-    }
-
-    /**
-     * adding to current basket (multi transfer parameters) item from server list
-     */
-    public function addtotransferAction() {
-
-        $form = new Application_Form_AddToTransfer();
-        $this->view->form = $form;
-        $sess = Zend_Registry::get('session');
-        $sources = $sess->sources;
-        $target = $sess->target;
-        $id_server = $this->_getParam('edit');
-        $server = new Application_Model_DbTable_Servers();
-
-        $server = $server->getServerData($id_server);
-        $data = array(
-            'host1' => $server[0]['website'],
-            'user1' => $server[0]['user']
-        );
-        $form->populate($data);
-        $this->view->sources = $sources;
-        $this->view->target = $target;
-
-        if ($this->getRequest()->isPost()) {
-            $formData = $this->getRequest()->getPost();
-            if ($form->isValid($formData)) {
-                $sess = Zend_Registry::get('session');
-                if ($formData['action'] == '2') {
-                    $target = $sess->target;
-                    $target = array('target', $formData['host1'], $formData['user1'], $formData['password1']);
-                    $sess->target = $target;
-                    $this->_redirect('multi/param');
-                } elseif ($formData['action'] == '1') {
-                    $sources = $sess->sources;
-                    echo 'z sesji<br/>';
-                    $source = array('source', $formData['host1'], $formData['user1'], $formData['password1']);
-                    $sources[] = $source;
-                    $sess->sources = $sources;
-                    $this->_redirect('multi/param');
-                }
-            } else {
-                $form->populate($formData);
-            }
-        }
+        $FlashMessenger = $this->_helper->getHelper("FlashMessenger");
     }
 
     /**

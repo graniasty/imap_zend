@@ -47,5 +47,8 @@ class Application_Model_DbTable_Servers extends Zend_Db_Table_Abstract {
         return $row->toArray();
     }
 
+    public function deleteServer($del){
+           $this->delete('id_server =' . (int) $del);
+    }
    
 }

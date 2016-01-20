@@ -1,0 +1,30 @@
+<div class="out_table" style="display: <?php echo $this->table_display ?>" >
+    <div class="out_table_label">List of servers</div>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Direction</th>
+                <th>Host</th>
+                <th>User</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($this->servers as $key => $server) { ?>
+                <tr>
+                    <td><?php echo $server['direction'] ?></td>
+                    <td><?php echo $server['website'] ?></td>
+                    <td><?php echo $server['user'] ?></td>
+                    <td>
+                        <a href="<?php echo $this->url(array('controller' => 'server', 'action' => 'addtotransfer', 'edit' => $server['id_server'])) ?>" class="btn btn-default">Add to transfer</a>
+            <a href="<?php echo $this->url(array('controller' => 'server', 'action' => 'delete', 'edit' => $server['id_server'])) ?>" class="btn btn-warning">Remove</a>
+                    </td>
+                </tr>
+            <?php } ?>
+            </tr>
+
+        </tbody>
+    </table>
+</div>
+
+
