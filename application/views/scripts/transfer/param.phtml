@@ -1,19 +1,7 @@
-<script>
-    function mojafunkcja() {
-   document.getElementById('test').submit();
-    }
-    </script>
-<?php echo $this->headScript()->prependFile('js/test.js'); ?>
 <div class="out_table" >
-    <div class="out_table_label">Source mailbox parameters:</div>
+    <div class="out_table_label">Transfer parameters input/edition:</div>
     <?php echo $this->form ?> 
 </div> 
-
-<div class="out_table" >
-    <div class="out_table_label">Target mailbox parameters:</div>
-    <?php echo $this->form2 ?> 
-</div> 
-<div><button class="btn btn-default" onclick="mojafunkcja()" >dzieje sie</button></div>
 <div class="out_table" style="display: <?php echo $this->table_display ?>" >
     <div class="out_table_label">Transfer parameters</div>
     <table class="table table-striped">
@@ -39,16 +27,9 @@
                 <td><?php echo $this->password2 ?></td>
             </tr>
             <tr>
-                <td colspan="4" align="center"><a href="/Transfer/transfer" class="btn btn-primary" data-toggle="modal" data-target="#myModal" <?php echo $this->button_disabled ?>  >Begin transfer</a> </td>
+                <td colspan="4" align="center"><a href="/Transfer/transfer" class="btn btn-primary" >Begin transfer</a> </td>
             </tr>
         </tbody>
     </table>
 </div>
-<p id="test">test</p>
-<button class="btn btn-default" onclick="testowa()">Action</button>
-<script>
-    mojafunkcja(){
-        document.form["param"].submit();
-    }
-</script>
 
