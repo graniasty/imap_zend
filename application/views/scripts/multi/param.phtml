@@ -1,3 +1,4 @@
+
 <div class="out_table" style="display:<?php echo $this->form_display ?>">
     <div class="out_table_label">Source mailbox parameters:</div>
     <?php echo $this->form ?> 
@@ -7,7 +8,7 @@
     <div class="out_table_label"  >Target mailbox parameters:</div>
     <?php echo $this->form2 ?> 
 </div> 
-
+    <button class="btn btn-default" onclick="testowa()">Action</button>
 <div class="out_table" style="display: <?php echo $this->table_display ?>" >
     <div class="out_table_label">Transfer parameters</div>
     <table class="table table-striped">
@@ -55,3 +56,9 @@
     <?php echo $this->zmienna; ?>
  
 </div>
+    <p id="testowe">testowe</p>
+<script>
+    function myFunction() {
+   document.getElementById('target_source').submit();
+    }
+    </script>

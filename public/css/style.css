@@ -62,3 +62,11 @@ body {
 
     margin: 20px;
 }
+
+.row {
+    padding-bottom: 20px;
+}
+
+.col-md-4 {
+   padding-left: 30px;
+}

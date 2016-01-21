@@ -1,6 +1,6 @@
 <?php
 
-class Application_Form_Param extends Zend_Form {
+class Application_Form_Paramtest extends Zend_Form {
 
     public function init() {
         $this->setName('param');

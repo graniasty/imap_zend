@@ -268,7 +268,9 @@ class MultiController extends Zend_Controller_Action {
      * for testing only
      */
     public function histAction() {
-        $FlashMessenger = $this->_helper->getHelper("FlashMessenger");
+        $form = new Application_Form_Paramtest();
+       
+        $this->view->form = $form;
     }
 
     /**
