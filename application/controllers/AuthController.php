@@ -13,7 +13,7 @@ class AuthController extends Zend_Controller_Action {
             if ($form->isValid($request->getPost())) {
                 if ($this->_process($form->getValues())) {
 //success means authenticate criteria has been met
-                    $this->_helper->redirector('param', 'multi');
+                    $this->_helper->redirector('setparam', 'multi');
                 }
             }
         }

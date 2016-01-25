@@ -68,6 +68,11 @@ body {
     padding-bottom: 20px;
 }
 
-.col-md-4 {
-   padding-left: 30px;
+.col-md-2 {
+   text-align: center;
+   font-size: 22px;
+}
+
+#login {
+    font-size: 12px;
 }

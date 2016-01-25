@@ -1,5 +1,5 @@
-<div class="out_table" style="display:<?php echo $this->form_display ?>">
-    <div class="out_table_label">Transfer parameters: edition</div>
+<div class="out_table" style="display:<?php echo $this->form_display; ?>" >
+    <div class="out_table_label">New transfer parameters :</div>
     <?php echo $this->form ?> 
 </div> 
 <div class="out_table" style="display: <?php echo $this->table_display ?>" >
@@ -31,25 +31,14 @@
                     </tr>
                 <?php } ?>
            
-            <?php if ($this->target) { ?>
-                <tr>
-                    <td><?php echo $this->target[0]; ?></td>
-                    <td><?php echo $this->target[1]; ?></td>
-                    <td><?php echo $this->target[2]; ?></td>
-                    <td><?php echo $this->target[3]; ?></td>
-                    <td>
-                        <a href="<?php echo $this->url(array('controller' => 'multi', 'action' => 'edit', 'edit' => 'target')); ?>" class="btn btn-default">Edit</a>
-                        <!--<a href="<?php //echo $this->url(array('controller' => 'multi', 'action' => 'delete', 'id' => 'target')); ?>" class="btn btn-warning" disabled >Delete</a>
-                    --></td>
-                </tr>
-            <?php } ?>
             <tr>
                 <td colspan="7" align="center">
                     <a href="/multi/transfer" class="btn btn-primary"  >Begin transfer</a> </td>
             </tr>
+            <tr>
+                <td colspan="7" align="center">
+                    <a href="/multi/clean" class="btn btn-warning"  >Clean prepared transfer data</a> </td>
+            </tr>
         </tbody>
     </table>
 </div>
-
-
-

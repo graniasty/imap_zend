@@ -5,6 +5,16 @@ class Application_Form_Param extends Zend_Form {
     public function init() {
         $this->setName('param');
         $this->setAttrib('class', 'form-inline');
+        $label1 = new Zend_Form_Element_Hidden('label1');
+        $label1->setLabel("source");
+        $label1->setDecorators(array(
+            'ViewHelper',
+            'Description',
+            'Errors',
+            'Label',
+            array(array('data' => 'HtmlTag'), array('tag' => 'div', 'class' => 'col-md-2')),
+            array(array('row' => 'HtmlTag'), array('tag' => 'div', 'class' => 'row form-inline', 'openOnly' => true))
+        ));
 
         $host1 = new Zend_Form_Element_Text('host1');
         $host1->setAttrib('class', 'form-control')
@@ -20,8 +30,7 @@ class Application_Form_Param extends Zend_Form {
             'Description',
             'Errors',
             'Label',
-            array(array('data' => 'HtmlTag'), array('tag' => 'div', 'class' => 'col-md-4')),      
-            array(array('row' => 'HtmlTag'), array('tag' => 'div', 'class' => 'row form-inline', 'openOnly' => true))
+            array(array('data' => 'HtmlTag'), array('tag' => 'div', 'class' => 'col-md-3')),
         ));
 
         $user1 = new Zend_Form_Element_Text('user1');
@@ -38,7 +47,7 @@ class Application_Form_Param extends Zend_Form {
             'Description',
             'Errors',
             'Label',
-            array(array('data' => 'HtmlTag'), array('tag' => 'div','class' => 'col-md-4' )),
+            array(array('data' => 'HtmlTag'), array('tag' => 'div', 'class' => 'col-md-3')),
         ));
 
         $password1 = new Zend_Form_Element_Text('password1');
@@ -47,6 +56,7 @@ class Application_Form_Param extends Zend_Form {
                 ->setRequired(true)
                 ->addFilter('StripTags')
                 ->addFilter('StringTrim')
+                ->addValidator('Alnum')
                 ->addValidator('NotEmpty');
 
         $password1->setDecorators(array(
@@ -54,13 +64,24 @@ class Application_Form_Param extends Zend_Form {
             'Description',
             'Errors',
             'Label',
-            array(array('data' => 'HtmlTag'), array('tag' => 'div','class' => 'col-md-4')),  
+            array(array('data' => 'HtmlTag'), array('tag' => 'div', 'class' => 'col-md-3')),
             array(array('row' => 'HtmlTag'), array('tag' => 'div', 'closeOnly' => 'true'))
+        ));
+
+        $label2 = new Zend_Form_Element_Hidden('label2');
+        $label2->setLabel("target");
+        $label2->setDecorators(array(
+            'ViewHelper',
+            'Description',
+            'Errors',
+            'Label',
+            array(array('data' => 'HtmlTag'), array('tag' => 'div', 'class' => 'col-md-2')),
+            array(array('row' => 'HtmlTag'), array('tag' => 'div', 'class' => 'row form-inline', 'openOnly' => true))
         ));
 
         $host2 = new Zend_Form_Element_Text('host2');
         $host2->setAttrib('class', 'form-control')
-                ->setLabel('host2')
+                ->setLabel('host1')
                 ->setRequired(true)
                 ->addFilter('StripTags')
                 ->addFilter('StringTrim')
@@ -72,8 +93,7 @@ class Application_Form_Param extends Zend_Form {
             'Description',
             'Errors',
             'Label',
-            array(array('data' => 'HtmlTag'), array('tag' => 'div', 'class' => 'col-md-4')),
-            array(array('row' => 'HtmlTag'), array('tag' => 'div', 'class' => 'row', 'openOnly' => true))
+            array(array('data' => 'HtmlTag'), array('tag' => 'div', 'class' => 'col-md-3')),
         ));
 
         $user2 = new Zend_Form_Element_Text('user2');
@@ -91,7 +111,7 @@ class Application_Form_Param extends Zend_Form {
             'Description',
             'Errors',
             'Label',
-            array(array('data' => 'HtmlTag'), array('tag' => 'div', 'class' => 'col-md-4')),
+            array(array('data' => 'HtmlTag'), array('tag' => 'div', 'class' => 'col-md-3')),
         ));
 
         $password2 = new Zend_Form_Element_Text('password2');
@@ -100,6 +120,7 @@ class Application_Form_Param extends Zend_Form {
                 ->setRequired(true)
                 ->addFilter('StripTags')
                 ->addFilter('StringTrim')
+                ->addValidator('Alnum')
                 ->addValidator('NotEmpty');
 
         $password2->setDecorators(array(
@@ -107,12 +128,12 @@ class Application_Form_Param extends Zend_Form {
             'Description',
             'Errors',
             'Label',
-            array(array('data' => 'HtmlTag'), array('tag' => 'div', 'class' => 'col-md-4')),
+            array(array('data' => 'HtmlTag'), array('tag' => 'div', 'class' => 'col-md-3')),
             array(array('row' => 'HtmlTag'), array('tag' => 'div', 'closeOnly' => 'true'))
         ));
 
         $submit = new Zend_Form_Element_Submit('submit');
-        $submit->setLabel('Submit');
+        $submit->setLabel('Save changes');
         $submit->setAttrib('class', 'btn btn-default');
         $submit->setAttrib('value', 'transfer_source');
 
@@ -124,13 +145,15 @@ class Application_Form_Param extends Zend_Form {
         ));
 
         $this->addElements(array(
+            $label1,
             $host1,
             $user1,
             $password1,
+            $label2,
             $host2,
             $user2,
             $password2,
-            $submit
+            $submit,
         ));
 
         $this->setDecorators(array(

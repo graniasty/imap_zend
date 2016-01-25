@@ -4,11 +4,13 @@ class Application_Model_DbTable_Transfers extends Zend_Db_Table_Abstract {
 
     protected $_name = 'transfers';
 
-    public function addTransfer($id_user, $id_target, $id_source, $date, $file, $status, $pid) {
+    public function addTransfer($id_user, $host1, $user1, $host2, $user2, $date, $file, $status, $pid) {
         $data = array(
             'id_user' => $id_user,
-            'server_target' => $id_target,
-            'server_source' => $id_source,
+            'source_host' => $host1,
+            'source_user' => $user1,
+            'target_host' => $host2,
+            'target_user' => $user2,
             'date' => $date,
             'file' => $file,
             'result' => $status,

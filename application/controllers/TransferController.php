@@ -84,12 +84,9 @@ class TransferController extends Zend_Controller_Action {
 //        unset($sess->host2);
 //        unset($sess->user2);
 //        unset($sess->password2);
-//$pidfile = '/var/www/html' . uniqid() . '.pid';
 
         $cmd = "imapsync --host1 $host1 --user1 $user1 --password1 $password1 --host2 $host2 --user2 $user2 --password2 $password2 > /var/www/html/solone.txt & ";
-//$cmd = "nohup sleep 30 & echo $!";
         exec($cmd);
-//echo $op[1];
         sleep(5);
         $fp = fopen("/var/www/html/solone.txt", "r");
         $tekst = fread($fp, 100);
