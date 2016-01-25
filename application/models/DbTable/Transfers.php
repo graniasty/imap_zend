@@ -46,15 +46,28 @@ class Application_Model_DbTable_Transfers extends Zend_Db_Table_Abstract {
             echo 'Nie można aktualizować bazy z powodu: ' . $ex->getMessage();
         }
     }
-    
-    public function getTransferID($id){
-        $row = $this->fetchAll("id_user = $id", "id_transfers desc");      
+
+    public function getTransferID($id) {
+        $row = $this->fetchAll("id_user = $id", "id_transfers desc");
         return $row->toArray();
     }
-    
-    public function getFile($pid){
+
+    public function getFile($pid) {
         $row = $this->fetchAll("pid = $pid");
         return $row->toArray();
+    }
+
+    public function deltransfer($id) {
+        try {
+            $this->delete("id_transfers = $id");
+        } catch (Exception $ex) {
+            echo 'Nie można aktualizować bazy z powodu: ' . $ex->getMessage();
+        }
+    }
+    
+    public function addTransfertoParam($id){
+        $row = $this->fetchAll("id_transfers = $id ");
+       return $row->toArray(); 
     }
 
 }

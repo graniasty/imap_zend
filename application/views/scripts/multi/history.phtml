@@ -20,11 +20,15 @@
                     <td><?php echo $transfer['target_name'] ?></td>
                     <td><?php echo $transfer['target_user'] ?></td>
                     <td><?php echo $transfer['result'] ?></td>
+                    <td>
+                        <a href="<?php echo $this->url(array('controller' => 'multi', 'action' => 'addtoparam', 'edit' => $transfer['id_transfers'])) ?>" class="btn btn-default">Use it again</a>
+                        <a href="<?php echo $this->url(array('controller' => 'multi', 'action' => 'delhistory', 'edit' => $transfer['id_transfers'])) ?>" class="btn btn-warning">Delete</a>
+                    </td>
                 </tr>
             <?php endforeach; ?>
             <tr>
                 <td colspan="6" align="center"><a href="/multi/history" class="btn btn-primary" <?php echo $this->button_disabled ?>  >Refresh</a>
-                   </td>
+                </td>
             </tr>
         </tbody>
     </table>

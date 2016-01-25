@@ -185,7 +185,7 @@ class MultiController extends Zend_Controller_Action {
         $sess = Zend_Registry::get('session');
         $this->view->table_display = 'none';
         $sess = Zend_Registry::get('session');
-        
+
         if (count($sess->transfers) > 0) {
             $this->view->table_display = 'block';
             $this->view->transfers = $sess->transfers;
@@ -197,7 +197,6 @@ class MultiController extends Zend_Controller_Action {
                 $new_transfer = array($formData['host1'], $formData['user1'], $formData['password1'], $formData['host2'], $formData['user2'], $formData['password2']);
                 $transfers[] = $new_transfer;
                 $sess->transfers = $transfers;
-                var_dump($sess->transfers);
                 $form->reset();
                 $this->view->transfers = $sess->transfers;
                 $this->view->table_display = 'block';
@@ -252,6 +251,39 @@ class MultiController extends Zend_Controller_Action {
         $this->view->transfers = $transfers;
         $sess->transfers = $transfers;
         $this->redirect('multi/setparam');
+    }
+
+    public function delhistoryAction() {
+        $edit = $this->_getParam('edit');
+        $transfer = new Application_Model_DbTable_Transfers();
+        $transfer->deltransfer($edit);
+        echo 'deltransfercontroller speaking';
+        $this->redirect('multi/history');
+    }
+
+    public function addtoparamAction() {
+        $edit = $this->_getParam('edit');
+
+        $transfer = new Application_Model_DbTable_Transfers();
+        $result = $transfer->addTransfertoParam($edit);
+        $result = $result[0];
+        $data = array('host1' => $result['source_host'], 'user1' => $result['source_user'], 'host2' => $result['target_host'], 'user2' => $result['target_user']);
+        $form = new Application_Form_Param();
+        $this->view->form = $form;
+        $form->populate($data);
+        $sess = Zend_Registry::get('session');
+        if ($this->getRequest()->isPost()) {
+            $formData = $this->getRequest()->getPost();
+            if ($form->isValid($formData)) {
+                $add_transfers = array($formData['host1'], $formData['user1'], $formData['password1'], $formData['host2'], $formData['user2'], $formData['password2']);
+                $transfers = $sess->transfers;
+                $transfers[] = $add_transfers;
+                $sess->transfers = $transfers;
+            } else {
+                $form->populate($formData);
+            }
+        }
+        $this->view->transfers = $sess->transfers;
     }
 
 }
