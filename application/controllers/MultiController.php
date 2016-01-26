@@ -73,9 +73,9 @@ class MultiController extends Zend_Controller_Action {
 
             $cmd = "imapsync --host1 $host1 --user1 $user1 --password1 $password1 --host2 $host2 --user2 $user2 --password2 $password2 > /var/www/html/temp_files/$file.txt & ";
             exec($cmd);
-            sleep(5);
+            sleep(3);
             $fp = fopen("/var/www/html/temp_files/$file.txt", "r");
-            $tekst = fread($fp, 1000000);
+            $tekst = fread($fp, 10000000);
             $pocz = strpos($tekst, "PID is");
             $pid = substr($tekst, ($pocz + 7), 5);
             $this->view->process_number = $pid;
@@ -116,10 +116,11 @@ class MultiController extends Zend_Controller_Action {
             $file = $transfers->getFile($pid);
             $file = $file[0]['file'];
             $fp = fopen("/var/www/html/temp_files/$file.txt", "r");
-            $tekst = fread($fp, filesize("/var/www/html/temp_files/$file.txt"));
+            $size = filesize("/var/www/html/temp_files/$file.txt");
+            $tekst = fread($fp, $size);
             if (strpos($tekst, "Failure: can not open imap connection")) {
                 $message = "Error connection";
-            } elseif (strpos($tekst, "Failure: error login on</p>")) {
+            } elseif (strpos($tekst, "Failure: error login on")) {
                 $message = "Error login";
             } elseif (strpos($tekst, "Detected 0 errors")) {
                 $message = "Transfer successful";
@@ -160,8 +161,10 @@ class MultiController extends Zend_Controller_Action {
      * for testing only
      */
     public function histAction() {
-        $form = new Application_Form_Paramtest();
-
+        $form = new Application_Form_Param();
+        $size = filesize("/var/www/html/temp_files/out_56a7692be96e2.txt");
+        echo 'to jest filesize';
+        var_dump($size);
         $this->view->form = $form;
     }
 
@@ -253,6 +256,9 @@ class MultiController extends Zend_Controller_Action {
         $this->redirect('multi/setparam');
     }
 
+    /**
+     * removes from history set of transfer data
+     */
     public function delhistoryAction() {
         $edit = $this->_getParam('edit');
         $transfer = new Application_Model_DbTable_Transfers();
@@ -261,9 +267,11 @@ class MultiController extends Zend_Controller_Action {
         $this->redirect('multi/history');
     }
 
+    /**
+     * passes transfer data from history to current form and transfet session data edition
+     */
     public function addtoparamAction() {
         $edit = $this->_getParam('edit');
-
         $transfer = new Application_Model_DbTable_Transfers();
         $result = $transfer->addTransfertoParam($edit);
         $result = $result[0];

@@ -76,3 +76,14 @@ body {
 #login {
     font-size: 12px;
 }
+
+.modal-body {
+    padding: 50px;
+    width: auto;
+    text-align: center;
+}
+
+.modal-dialog {
+    margin-top: 200px;
+    width: 350px;
+}
