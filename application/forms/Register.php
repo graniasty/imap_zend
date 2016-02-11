@@ -16,7 +16,7 @@ class Application_Form_Register extends Zend_Form {
             'label' => 'Username',
             'class' => 'form-control'
         ));
-
+        
         $this->addElement('password', 'password', array(
             'filters' => array('StringTrim'),
             'validators' => array(

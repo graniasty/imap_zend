@@ -20,7 +20,7 @@ class Application_Form_SimplyCheckForm extends Zend_Form {
                 ->addValidator('NotEmpty');
 
         $submit = new Zend_Form_Element_Submit('Check transfer');
-        $submit->setAttrib('class', 'btn btn-default');
+        $submit->setAttrib('class', 'btn');
         $submit->setLabel("Check transfer");
 
         $submit->setDecorators(array(

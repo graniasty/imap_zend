@@ -6,7 +6,7 @@ class Application_Form_Param extends Zend_Form {
         $this->setName('param');
         $this->setAttrib('class', 'form-inline');
         $label1 = new Zend_Form_Element_Hidden('label1');
-        $label1->setLabel("source");
+        $label1->setLabel("sourcess");
         $label1->setDecorators(array(
             'ViewHelper',
             'Description',

@@ -75,7 +75,7 @@ class MultiController extends Zend_Controller_Action {
             exec($cmd);
             sleep(3);
             $fp = fopen("/var/www/html/temp_files/$file.txt", "r");
-            $tekst = fread($fp, 10000000);
+            $tekst = fread($fp, 10000);
             $pocz = strpos($tekst, "PID is");
             $pid = substr($tekst, ($pocz + 7), 5);
             $this->view->process_number = $pid;
@@ -85,7 +85,7 @@ class MultiController extends Zend_Controller_Action {
         }
         $sess = Zend_Registry::get('session');
         //$sess->transfers = array();
-        $this->_redirect('multi/history');
+        //$this->_redirect('multi/history');
     }
 
     public function historyAction() {

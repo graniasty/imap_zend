@@ -11,7 +11,7 @@
          
         <?php echo $this->headScript()->prependFile('/js/jquery-2.2.0.js'); ?>
         <?php echo $this->headScript()->prependFile('/js/transfer.js'); ?>
-        
+        <?php echo $this->headScript()->prependFile('/js/test.js'); ?>
         <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800&subset=latin,latin-ext" rel="stylesheet" type="text/css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
@@ -20,7 +20,26 @@
             <?php echo $this->headLink()->appendStylesheet('/css/style.css') ?>    
     </head>
     <body>
-        <nav class="navbar navbar-inverse navbar-fixed-top">
+        <header>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="logo">
+                            <img src="/images/logo_webion.png" />
+                        </div>
+                        <div class="menu" style="display: <?php echo $this->menu_display ?>">
+                            <ul class="unstyled">
+                                <li><a href="/multi/setparam">transfer</a></li>
+                                <li><a href="/multi/history">history</a></li>
+                                <li><a href="/multi/logout">logout</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!--nav class="navbar navbar-inverse navbar-fixed-top">
             <div class="container" style="border: 0px">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -36,16 +55,16 @@
                         <li><a href="/multi/history">history</a></li>
                         <li><a href="/multi/logout">logout</a></li>
                     </ul>
-                </div><!--/.nav-collapse -->
+                </div>
             </div>
-        </nav>
-        <p>&nbsp;</p>
-        <div class="container " style="background-color:  rgba(255, 255, 255, 0.8);"">
-            <div class="out_table btn btn-default" style="border-color: #cc9966">
-                <h3>Mailbox transfer</h3>
-            </div>         
-            <?php echo $this->layout()->content; ?>
+        </nav-->
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h3>Mailbox transfer</h3>
+                    <?php echo $this->layout()->content; ?>
+                </div>
+            </div>
         </div>
-        
     </body>
 </html>

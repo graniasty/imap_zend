@@ -1,5 +1,5 @@
 <div class="out_table" style="display: <?php echo $this->table_display ?>" >
-    <div class="out_table_label">Transfer history</div>
+    <h4>Transfer history</h4>
     <table class="table table-striped">
         <thead>
             <tr>
@@ -9,6 +9,7 @@
                 <th>Target Server</th>
                 <th>Target User</th>
                 <th>Result</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -21,13 +22,13 @@
                     <td><?php echo $transfer['target_user'] ?></td>
                     <td><?php echo $transfer['result'] ?></td>
                     <td>
-                        <a href="<?php echo $this->url(array('controller' => 'multi', 'action' => 'addtoparam', 'edit' => $transfer['id_transfers'])) ?>" class="btn btn-default">Use it again</a>
-                        <a href="<?php echo $this->url(array('controller' => 'multi', 'action' => 'delhistory', 'edit' => $transfer['id_transfers'])) ?>" class="btn btn-warning">Delete</a>
+                        <a href="<?php echo $this->url(array('controller' => 'multi', 'action' => 'addtoparam', 'edit' => $transfer['id_transfers'])) ?>" class="btn">Use it again</a>
+                        <a href="<?php echo $this->url(array('controller' => 'multi', 'action' => 'delhistory', 'edit' => $transfer['id_transfers'])) ?>" class="btn red">Delete</a>
                     </td>
                 </tr>
             <?php endforeach; ?>
             <tr>
-                <td colspan="7" align="center"><a href="/multi/history" class="btn btn-primary" <?php echo $this->button_disabled ?>  >Refresh</a>
+                <td colspan="7" align="center"><a href="/multi/history" class="btn" <?php echo $this->button_disabled ?>  >Refresh</a>
                 </td>
             </tr>
         </tbody>

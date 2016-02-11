@@ -1,25 +1,220 @@
 body {
-    padding: 80px 0;
-    background: url(http://78.11.120.39/photos/libra.jpg) no-repeat center top fixed;
-
+    padding: 120px 0 60px;
+    background: #f3f4f6;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
+    font-size: 13px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    color: #5d5d5d;
 }
 
+.btn {
+    border: 1px solid #85cfce;
+    color: #85cfce;
+    font-weight: 600;
+    padding: 12px 36px;
+    border-radius: 0;
+    text-transform: uppercase;
+    webkit-transition: all ease-in-out .3s;
+    -o-transition: all ease-in-out .3s;
+    transition: all ease-in-out .3s;
+    font-size: 12px;
+    line-height: 1;
+    background: transparent;
+    outline: none;
+    margin: 0 1px 0 0;
+}
 
-.container {
+.btn.red {
+    border: 1px solid #e55c4c;
+    color: #e55c4c;
+}
 
-    padding: 15px;
-    margin: 1 auto;
-    border: 2px solid gray;
-    -moz-border-radius: 15px;
-    -webkit-border-radius: 15px;
-    border-radius: 15px;
+.btn:hover,
+.btn.red:hover {
+    color: #fff;
+    background: #85cfce;
+}
+
+.btn.red:hover {
+    background: #e55c4c;
+}
+
+.unstyled {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+p:last-child {
+    margin: 0;
+}
+
+header {
+    border-top: 5px solid #85cfce;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: #f3f4f6;
+    border-bottom: 1px solid #eaeaea -moz-box-shadow: 2.3px 4.4px 13px rgba(0, 0, 0, 0.15);
+    -webkit-box-shadow: 2.3px 4.4px 13px rgba(0, 0, 0, 0.15);
+    box-shadow: 2.3px 4.4px 13px rgba(0, 0, 0, 0.15);
+}
+
+header .logo {
+    float: left;
+}
+
+header .logo img {
+    width: 150px;
+    padding-top: 12px;
+}
+
+header .menu {
+    float: right;
+}
+
+header .menu li {
+    float: left;
+    webkit-transition: all ease-in-out .3s;
+    -o-transition: all ease-in-out .3s;
+    transition: all ease-in-out .3s;
+}
+
+header .menu li:hover {
+    background: #eaeaea
+}
+
+header .menu li {
+    border-left: 1px solid #eaeaea
+}
+
+header .menu li:last-child {
+    border-right: 1px solid #eaeaea
+}
+
+header .menu li a {
+    padding: 26px;
+    color: #8D8D8D;
+    text-decoration: none;
+    font-weight: 500;
+    display: block;
+    text-transform: uppercase;
+}
+
+h3,
+h4 {
+    font-size: 18px;
+    border-bottom: 1px solid #eaeaea;
+    font-weight: 700;
+    margin: 0 0 26px;
+    padding: 0 0 15px;
+}
+
+h4 {
+    font-size: 14px;
+    border-bottom: 0;
+    margin: 0 0 0;
+    padding: 0 0 8px;
+}
+
+h5.number {
+    border: 1px solid #85cfce;
+    padding: 16px 26px;
+    font-size: 26px;
     display: table;
-
+    margin: 0 auto;
+    margin-bottom: 26px;
 }
+
+input[type=submit].form-control,
+input[type=text].form-control {
+    width: auto;
+    border: 1px solid #85cfce;
+    font-weight: 700;
+    padding: 12px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .0);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .0);
+    background: transparent;
+    background: transparent;
+    width: 100%!important;
+    background: rgba(255, 255, 255, 0.7);
+    margin: 6px 0;
+    outline: none;
+    webkit-transition: all ease-in-out .3s;
+    -o-transition: all ease-in-out .3s;
+    transition: all ease-in-out .3s;
+}
+
+input[type=submit].form-control {
+    width: auto!important;
+    padding: 12px 36px;
+    background: transparent;
+    margin: 0;
+    color: #85cfce;
+    text-transform: uppercase;
+    border: 1px solid #85cfce;
+}
+
+input[type=submit].form-control:hover {
+    color: #fff;
+    background: #85cfce;
+    border: 1px solid #85cfce;
+}
+
+label {
+    margin: 6px 0 0;
+    font-size: 13px;
+    font-weight: 500;
+    display: table;
+    width: 100%;
+    text-transform: uppercase;
+}
+
+.form-control {
+    outline: none;
+    border: 1px solid rgba(133, 207, 206, 0.7);
+    padding: 12px;
+    border-radius: 0;
+    line-height: 1;
+    height: auto;
+    font-weight: 700;
+    font-size: 13px;
+    margin: 6px 0;
+}
+
+.form-control:hover,
+.form-control:focus {
+    border: 1px solid rgba(133, 207, 206, 1);
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .0);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .0);
+}
+
+ul.errors {
+    list-style: none;
+    margin: 6px 0;
+    padding: 0;
+    font-size: 11px;
+    font-weight: 700;
+    text-align: center;
+    color: #e55c4c;
+}
+
+.bg-success {
+    background-color: #85cfce;
+    display: table;
+    width: 100%;
+    padding: 16px 8px;
+    margin-bottom: 13px;
+    color: #fff;
+    font-size: 15px;
+    text-align: center;
+}
+
 .overlay {
     padding: 15px;
     background: rgba(255, 255, 255, 0.8);
@@ -28,49 +223,24 @@ body {
     border-radius: 10px;
     /*-webkit-filter: blur(5px);*/
 }
+
 .btn-primary {
-    margin:auto;
-}
-
-
-
-.out_table {
-    padding: 15px;
-    margin-bottom:  10px;
-    border: 2px solid white;
-    -moz-border-radius: 10px;
-    -webkit-border-radius: 10px;
-    border-radius: 10px;
-    display: table;
-    width: 100%;
+    margin: auto;
 }
 
 .out_table_label {
     padding-bottom: 15px;
     font-family: Arial;
-    text-decoration: bold;   
-}
-
-.errors {   
-    font-size: 10px;
+    text-decoration: bold;
 }
 
 .login_form {
     margin: auto;
 }
 
-#checked {
-
-    margin: 20px;
-}
-
-.row {
-    padding-bottom: 20px;
-}
-
 .col-md-2 {
-   text-align: center;
-   font-size: 22px;
+    text-align: center;
+    font-size: 22px;
 }
 
 #login {
@@ -86,4 +256,48 @@ body {
 .modal-dialog {
     margin-top: 200px;
     width: 350px;
+}
+
+.td-transparent {
+    background-color: transparent!important;
+}
+
+table.table-striped {
+    border: 1px solid #85cfce!important;
+}
+
+.table-striped>thead>tr>th {
+    background-color: #85cfce!important;
+    color: #fff!important;
+}
+
+.table>thead>tr>th {
+    vertical-align: bottom;
+    border-bottom: 0;
+}
+
+.table>tbody>tr>td {
+    vertical-align: middle;
+    font-size: 11px;
+}
+
+table .btn {
+    font-size: 11px;
+    padding: 8px 12px;
+}
+
+.optional {
+    text-align: right;
+    padding-top: 36px;
+}
+
+@media (max-width: 552px) {
+    header .menu li a {
+        padding: 26px 12px;
+        font-size: 12px;
+    }
+    header .logo img {
+        width: 110px;
+        padding-top: 18px;
+    }
 }

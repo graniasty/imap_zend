@@ -1,1 +1,56 @@
-//to jest view file
+<div class="out_table" style="display:<?php echo $this->form_display; ?>" >
+    <div class="out_table_label">New transfer parameters :</div>
+    <?php echo $this->form ?> 
+</div> 
+<div class="out_table" style="display: <?php echo $this->table_display ?>" >
+    <div class="out_table_label">Transfer parameters</div>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Source Host</th>
+                <th>Source User</th>
+                <th>Password</th>
+                <th>Target Host</th>
+                <th>Target User</th>
+                <th>Password</th>
+            </tr>
+        </thead>
+        <tbody>    
+            <?php foreach ($this->transfers as $key => $server) { ?>
+                <tr>
+                    <td><?php echo $server[0] ?></td>
+                    <td><?php echo $server[1] ?></td>
+                    <td>*****</td>
+                    <td><?php echo $server[3] ?></td>
+                    <td><?php echo $server[4] ?></td>
+                    <td>*****</td>
+                    <td>
+                        <a href="<?php echo $this->url(array('controller' => 'multi', 'action' => 'edit', 'edit' => $key)) ?>" class="btn btn-default">Edit</a>
+                        <a href="<?php echo $this->url(array('controller' => 'multi', 'action' => 'delete', 'id' => $key)) ?>" class="btn btn-warning">Delete</a>
+                    </td>
+                </tr>
+            <?php } ?>
+
+            <tr>
+                <td colspan="7" align="center">
+                    <a id="button_transfer"  class="btn btn-primary"  >Begin transfer</a>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="7" align="center">
+                    <a href="/multi/clean" class="btn btn-warning"  >Clean prepared transfer data</a> 
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+</div>
+<div class="modal fade" id="myModal" tabindex="-1" >
+    <div class="modal-dialog">
+        <div class="modal-content" >     
+            <div class="modal-body" >
+                <img src="/photos/gears2.gif" >
+            </div>
+        </div>
+    </div>
+</div>
