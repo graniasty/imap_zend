@@ -84,8 +84,8 @@ class MultiController extends Zend_Controller_Action {
             $transfer->addTransfer($id_user, $host1, $user1, $host2, $user2, $today, $file, $status, $pid);
         }
         $sess = Zend_Registry::get('session');
-        //$sess->transfers = array();
-        //$this->_redirect('multi/history');
+        $sess->transfers = array();
+        $this->_redirect('multi/history');
     }
 
     public function historyAction() {
@@ -128,7 +128,7 @@ class MultiController extends Zend_Controller_Action {
                 $message = "Finished, no details";
             }
             $transfers->setZeroPid($pid);
-            //unlink("/var/www/html/temp_files/$file.txt");
+            unlink("/var/www/html/temp_files/$file.txt");
             return $message;
         }
     }
@@ -160,20 +160,20 @@ class MultiController extends Zend_Controller_Action {
     /**
      * for testing only
      */
-    public function histAction() {
-        $form = new Application_Form_Param();
-        $size = filesize("/var/www/html/temp_files/out_56a7692be96e2.txt");
-        echo 'to jest filesize';
-        var_dump($size);
-        $this->view->form = $form;
-    }
+//    public function histAction() {
+//        $form = new Application_Form_Param();
+//        $size = filesize("/var/www/html/temp_files/out_56a7692be96e2.txt");
+//        echo 'to jest filesize';
+//        var_dump($size);
+//        $this->view->form = $form;
+//    }
 
     /**
      * destroys Auth data, destroys Session data, redirect to home page
      */
     public function logoutAction() {
-//        $sess = Zend_Registry::get('session');
-//        $sess->transfers = array();
+        $sess = Zend_Registry::get('session');
+        $sess->transfers = array();
         $storage = new Zend_Auth_Storage_Session();
         $storage->clear();
         $this->_redirect('auth/index');
@@ -234,6 +234,7 @@ class MultiController extends Zend_Controller_Action {
             if ($form->isValid($formData)) {
                 $transfers[$edit] = array($formData['host1'], $formData['user1'], $formData['password1'], $formData['host2'], $formData['user2'], $formData['password2']);
                 $sess->transfers = $transfers;
+                $this->redirect('multi/setparam');
             } else {
                 $form->populate($formData);
             }

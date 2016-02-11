@@ -1,9 +1,9 @@
-
-    <h4>Transfer parameters input/edition:</h4>
+<div class="out_table" >
+    <div class="out_table_label">Transfer parameters input/edition:</div>
     <?php echo $this->form ?> 
-
-<div class="out_table"><!--style="display: <?php echo $this->table_display ?>"-->
-    <h4>Transfer parameters</h4>
+</div> 
+<div class="col-md-12 style="display: <?php echo $this->table_display ?>" >
+    <div class="out_table_label">Transfer parameters</div>
     <table class="table table-striped">
         <thead>
             <tr>
@@ -26,8 +26,8 @@
                 <td><?php echo $this->user2 ?></td>
                 <td><?php echo $this->password2 ?></td>
             </tr>
-            <tr class="td-transparent">
-                <td colspan="4" align="center"><a href="/Transfer/transfer" class="btn">Begin transfer</a></td>
+            <tr>
+                <td colspan="4" align="center"><a href="/Transfer/transfer" class="btn btn-primary" >Begin transfer</a> </td>
             </tr>
         </tbody>
     </table>
